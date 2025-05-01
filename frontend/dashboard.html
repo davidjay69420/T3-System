@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard - T3 Salon</title>
+  <style>
+    body { background: pink; font-family: Arial, sans-serif; margin: 0; }
+    .header { background: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .profile { position: relative; cursor: pointer; }
+    .profile img { width: 40px; height: 40px; border-radius: 50%; vertical-align: middle; }
+    .profile-name { margin-left: 10px; display: inline-block; vertical-align: middle; }
+    .dropdown { display: none; position: absolute; top: 50px; right: 0; background: white; border: 1px solid gray; border-radius: 5px; }
+    .dropdown a { display: block; padding: 10px; text-decoration: none; color: black; }
+    .dropdown a:hover { background: pink; }
+    .welcome { text-align: center; margin-top: 50px; }
+    .book-button { display: block; margin: 30px auto; padding: 10px 20px; background: white; border: 2px solid pink; color: pink; font-weight: bold; border-radius: 10px; text-decoration: none; }
+  </style>
+</head>
+<body onload="loadUser()">
+
+  <div class="header">
+    <div><h2>T3 Salon</h2></div>
+    <div class="profile" onclick="toggleDropdown()">
+      <img src="usericon.png" alt="User">
+      <span class="profile-name" id="userName"></span>
+      <div class="dropdown" id="dropdown">
+        <a href="#" onclick="logout()">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="welcome">
+    <h1 id="welcomeMessage"></h1>
+    <a href="booking.html" class="book-button">Book Now</a>
+  </div>
+
+  <script>
+    function loadUser() {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+      document.getElementById('userName').textContent = user.name;
+      document.getElementById('welcomeMessage').textContent = `Welcome, ${user.name}`;
+    }
+
+    function toggleDropdown() {
+      const dropdown = document.getElementById('dropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function logout() {
+      localStorage.removeItem('currentUser');
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>

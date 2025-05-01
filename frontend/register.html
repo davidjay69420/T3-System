@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register - T3 Salon</title>
+  <style>
+    body { background: pink; font-family: Arial, sans-serif; }
+    .container { max-width: 400px; margin: 60px auto; padding: 20px; background: white; border-radius: 10px; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid gray; }
+    button { background: pink; color: black; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Register Account</h2>
+    <input type="text" id="name" placeholder="Full Name" required>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="register()">Register</button>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
+
+  <script>
+    function register() {
+      const name = document.getElementById('name').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (!name || !username || !password) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem('users')) || [];
+      if (users.find(user => user.username === username)) {
+        alert('Username already exists!');
+        return;
+      }
+
+      users.push({ name, username, password });
+      localStorage.setItem('users', JSON.stringify(users));
+      alert('Registered successfully! Please log in.');
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>

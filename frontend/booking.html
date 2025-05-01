@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking - T3 Salon</title>
+  <style>
+    body { background: pink; font-family: Arial, sans-serif; }
+    .container { max-width: 400px; margin: 60px auto; padding: 20px; background: white; border-radius: 10px; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; }
+    button { background: pink; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Select Appointment Date & Time</h2>
+    <input type="date" id="date">
+    <input type="time" id="time">
+    <button onclick="saveBooking()">Next</button>
+  </div>
+
+  <script>
+    function saveBooking() {
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      if (!date || !time) {
+        alert('Please select date and time.');
+        return;
+      }
+      localStorage.setItem('booking', JSON.stringify({ date, time }));
+      window.location.href = 'services.html';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmation - T3 Salon</title>
+  <style>
+    body { background: pink; font-family: Arial, sans-serif; }
+    .container { max-width: 400px; margin: 60px auto; padding: 20px; background: white; border-radius: 10px; text-align: center; }
+    button { padding: 10px 20px; margin-top: 20px; background: pink; border: none; border-radius: 5px; font-weight: bold; }
+  </style>
+</head>
+<body onload="showConfirmation()">
+  <div class="container">
+    <h2>Appointment Confirmation</h2>
+    <p id="summary"></p>
+    <button onclick="confirmBooking()">Confirm Booking</button>
+  </div>
+
+  <script>
+    function showConfirmation() {
+      const booking = JSON.parse(localStorage.getItem('booking'));
+      document.getElementById('summary').innerHTML = `
+        Date: ${booking.date}<br>
+        Time: ${booking.time}<br>
+        Service: ${booking.service}
+      `;
+    }
+
+    function confirmBooking() {
+      alert('Appointment confirmed!');
+      localStorage.removeItem('booking');
+      window.location.href = 'dashboard.html';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>T3 Salon - Login</title>
+  <style>
+    body { background: pink; font-family: sans-serif; }
+    .login-box { background: #fff; padding: 20px; max-width: 300px; margin: 50px auto; border-radius: 10px; }
+    input, button { width: 100%; margin: 10px 0; padding: 10px; }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Login</h2>
+    <input type="text" id="loginUser" placeholder="Username">
+    <input type="password" id="loginPass" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p>Don't have an account? <a href="register.html">Sign up</a></p>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById('loginUser').value;
+      const password = document.getElementById('loginPass').value;
+
+      // Admin check
+      if (username === 'admin' && password === 'admin123') {
+        alert("Welcome Admin!");
+        window.location.href = "admin.html";
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const user = users.find(u => u.username === username && u.password === password);
+
+      if (user) {
+        alert("Login successful!");
+        window.location.href = "booking.html";
+      } else {
+        alert("Invalid credentials.");
+      }
+    }
+  </script>
+</body>
+</html>
+
+

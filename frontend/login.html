@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - T3 Salon</title>
+  <style>
+    body { background: pink; font-family: Arial, sans-serif; }
+    .container { max-width: 400px; margin: 60px auto; padding: 20px; background: white; border-radius: 10px; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid gray; }
+    button { background: pink; color: black; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <p>Don't have an account? <a href="register.html">Register</a></p>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const user = users.find(user => user.username === username && user.password === password);
+
+      if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        alert('Login successful!');
+        window.location.href = 'dashboard.html';
+      } else {
+        alert('Invalid username or password.');
+      }
+    }
+  </script>
+</body>
+</html>

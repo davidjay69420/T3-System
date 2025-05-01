@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm Appointment</title>
+  <style>
+    body {
+      background-color: #ffd6e8;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    .summary {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="summary">
+    <h1>Appointment Summary</h1>
+    <p><strong>Date:</strong> <span id="date"></span></p>
+    <p><strong>Time:</strong> <span id="time"></span></p>
+    <p><strong>Service:</strong> <span id="service"></span></p>
+    <p>Thank you for booking with T3 Salon!</p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("date").textContent = params.get("date") || "Not set";
+    document.getElementById("time").textContent = params.get("time") || "Not set";
+    document.getElementById("service").textContent = params.get("service") || "Not set";
+  </script>
+</body>
+</html>
