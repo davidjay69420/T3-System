@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salon Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #7e7272;
+            padding: 20px;
+        }
+
+        .services-container {
+            display: flex;
+            width: 100%;
+            max-width: 900px;
+            gap: 20px;
+        }
+
+        .services-list {
+            flex: 0 0 250px;
+            background-color: #f2e6e6;
+            border-radius: 15px;
+            padding-bottom: 20px;
+        }
+
+        .services-title {
+            text-align: center;
+            padding: 10px;
+            background-color: #f0dede;
+            border-radius: 25px;
+            margin-bottom: 10px;
+            font-style: italic;
+            font-size: 20px;
+        }
+
+        .service-category {
+            margin: 15px 0;
+            padding: 0 15px;
+        }
+
+        .category-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .service-item {
+            font-size: 16px;
+            margin-bottom: 3px;
+            color: #333;
+        }
+
+        .gallery {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 15px;
+            align-content: start;
+        }
+
+        .gallery-item {
+            height: 110px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+
+        .gallery-item:nth-child(2) {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+        }
+
+        .gallery-item:nth-child(3) {
+            grid-column: 3 / 4;
+            grid-row: 1 / 2;
+        }
+
+        .gallery-item:nth-child(4) {
+            grid-column: 1 / 2;
+            grid-row: 2 / 3;
+        }
+
+        .gallery-item:nth-child(5) {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+        }
+
+        .gallery-item:nth-child(6) {
+            grid-column: 1 / 2;
+            grid-row: 3 / 4;
+        }
+
+        .gallery-item:nth-child(7) {
+            grid-column: 3 / 4;
+            grid-row: 3 / 4;
+        }
+
+        @media (max-width: 768px) {
+            .services-container {
+                flex-direction: column;
+            }
+            
+            .services-list {
+                flex: 0 0 auto;
+                width: 100%;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .gallery-item:nth-child(3) {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+            }
+            
+            .gallery-item:nth-child(5) {
+                grid-column: 1 / 2;
+                grid-row: 3 / 4;
+            }
+            
+            .gallery-item:nth-child(7) {
+                grid-column: 2 / 3;
+                grid-row: 3 / 4;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="services-container">
+        <div class="services-list">
+            <h1 class="services-title">Services offered</h1>
+            
+            <div class="service-category">
+                <h2 class="category-title">Hair Services</h2>
+                <div class="service-item">Haircuts</div>
+                <div class="service-item">Rebond</div>
+                <div class="service-item">Hair color</div>
+                <div class="service-item">Keratin treatment</div>
+            </div>
+            
+            <div class="service-category">
+                <h2 class="category-title">Nail Services</h2>
+                <div class="service-item">Manicure</div>
+                <div class="service-item">Pedicure</div>
+                <div class="service-item">Nail extension & Nail art</div>
+            </div>
+            
+            <div class="service-category">
+                <h2 class="category-title">Spa services</h2>
+                <div class="service-item">Foot spa</div>
+            </div>
+        </div>
+        
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="images/6.jpg" alt="Nail service with polish application">
+            </div>
+            <div class="gallery-item">
+                <img src="images/hc.jpg" alt="Hair cutting with scissors">
+            </div>
+            <div class="gallery-item">
+                <img src="images/kt.jpg0" alt="Nail art application">
+            </div>
+            <div class="gallery-item">
+                <img src="images/mc.jpg" alt="Hair trimming with scissors">
+            </div>
+            <div class="gallery-item">
+                <img src="images/na.jpg" alt="Men's haircut with clippers">
+            </div>
+            <div class="gallery-item">
+                <img src="images/nex.jpg" alt="Hair styling and blow drying">
+            </div>
+            <div class="gallery-item">
+                <img src="images/pc.jpg" alt="Foot spa treatment">
+            </div>
+            <div class="gallery-item">
+                <img src="images/rbd.jpg" alt="Foot spa treatment">
+          </div>
+        </div>
+    </div>
+</body>
+</html>

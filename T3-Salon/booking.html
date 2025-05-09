@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date and Time Picker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #8d7f7f;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-button::before {
+            content: "←";
+            margin-right: 5px;
+        }
+
+        .picker-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .date-picker, .time-picker {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 48%;
+        }
+
+        .month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .month-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .nav-button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .calendar {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .calendar th, .calendar td {
+            width: 14.28%;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .calendar th {
+            font-weight: normal;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .calendar td {
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 14px;
+        }
+
+        .calendar td:hover {
+            background-color: #f0f0f0;
+        }
+
+        .calendar td.selected {
+            background-color: #f0f0f0;
+        }
+
+        .calendar td.today {
+            font-weight: bold;
+        }
+
+        .time-picker-header {
+            color: #777;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .time-inputs {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .time-input {
+            width: 60px;
+            height: 50px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 24px;
+            text-align: center;
+            margin-right: 5px;
+        }
+
+        .time-separator {
+            font-size: 24px;
+            margin: 0 5px;
+        }
+
+        .time-format {
+            display: flex;
+            margin-left: 10px;
+        }
+
+        .format-button {
+            background-color: #f0f0f0;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .format-button.active {
+            background-color: #6d28d9;
+            color: white;
+        }
+
+        .format-button:first-child {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .format-button:last-child {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        .time-now {
+            display: flex;
+            align-items: center;
+            color: #555;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .time-now-icon {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #555;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5px;
+        }
+
+        .time-now-icon::before {
+            content: "↻";
+            font-size: 12px;
+        }
+
+        .input-label {
+            font-size: 12px;
+            color: #555;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .confirm-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .confirm-button {
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 12px 30px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .time-input-focused {
+            border-color: #6d28d9;
+        }
+
+        .hour-input {
+            border-color: #6d28d9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="button">Choose date and time</button>
+            <button class="button back-button">Go back</button>
+        </div>
+        
+        <div class="picker-container">
+            <div class="date-picker">
+                <div class="month-header">
+                    <button class="nav-button">&#10094;</button>
+                    <h2 class="month-title">April 2025</h2>
+                    <button class="nav-button">&#10095;</button>
+                </div>
+                
+                <table class="calendar">
+                    <thead>
+                        <tr>
+                            <th>Mo</th>
+                            <th>Tu</th>
+                            <th>We</th>
+                            <th>Th</th>
+                            <th>Fr</th>
+                            <th>Sa</th>
+                            <th>Su</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>11</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>13</td>
+                            <td>14</td>
+                            <td>15</td>
+                            <td>16</td>
+                            <td>17</td>
+                            <td>18</td>
+                        </tr>
+                        <tr>
+                            <td>19</td>
+                            <td>20</td>
+                            <td>21</td>
+                            <td>22</td>
+                            <td>23</td>
+                            <td>24</td>
+                            <td>25</td>
+                        </tr>
+                        <tr>
+                            <td>26</td>
+                            <td>27</td>
+                            <td>28</td>
+                            <td>29</td>
+                            <td>30</td>
+                            <td>31</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="time-picker">
+                <p class="time-picker-header">ENTER TIME</p>
+                
+                <div class="time-inputs">
+                    <div>
+                        <input type="text" class="time-input hour-input" value="" placeholder="">
+                        <div class="input-label">Hour</div>
+                    </div>
+                    
+                    <span class="time-separator">:</span>
+                    
+                    <div>
+                        <input type="text" class="time-input" value="00">
+                        <div class="input-label">Minute</div>
+                    </div>
+                    
+                    <div class="time-format">
+                        <button class="format-button active">AM</button>
+                        <button class="format-button">PM</button>
+                    </div>
+                </div>
+                
+                <div class="time-now">
+                    <span class="time-now-icon"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="confirm-container">
+            <button class="confirm-button">Confirm to proceed</button>
+        </div>
+    </div>
+
+    <script>
+        // Add basic interaction functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Select date functionality
+            const dateCells = document.querySelectorAll('.calendar td');
+            dateCells.forEach(cell => {
+                if (cell.textContent.trim() !== '') {
+                    cell.addEventListener('click', function() {
+                        dateCells.forEach(c => c.classList.remove('selected'));
+                        this.classList.add('selected');
+                    });
+                }
+            });
+            
+            // AM/PM toggle
+            const formatButtons = document.querySelectorAll('.format-button');
+            formatButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    formatButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Focus styling for time inputs
+            const timeInputs = document.querySelectorAll('.time-input');
+            timeInputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    timeInputs.forEach(i => i.classList.remove('time-input-focused'));
+                    this.classList.add('time-input-focused');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
